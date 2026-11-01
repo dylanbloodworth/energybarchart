@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Energy Bar Chart Lab</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <h1>Energy Bar Chart Lab</h1>
+    <div class="topbar-actions">
+      <label class="inline">Scene <select id="scene-select"></select></label>
+      <button type="button" id="btn-save" title="Download this setup as a file">Save</button>
+      <button type="button" id="btn-open" title="Open a saved setup">Open</button>
+      <input type="file" id="file-input" accept=".json,application/json" hidden>
+    </div>
+  </header>
+
+  <main class="app">
+    <nav class="palette" id="palette" aria-label="Objects"></nav>
+
+    <section class="stage" aria-label="Simulation">
+      <div class="toolbar">
+        <button type="button" id="btn-palette" aria-controls="palette" aria-label="Objects menu">☰ Objects</button>
+        <button type="button" id="btn-play" class="primary">Play</button>
+        <button type="button" id="btn-step" title="Advance 1/30 s">Step</button>
+        <button type="button" id="btn-reset" title="Return to the initial state">Reset</button>
+        <button type="button" id="btn-mark" title="Make this moment the initial state">Set as initial</button>
+        <button type="button" id="btn-undo" title="Undo (Ctrl+Z)" aria-label="Undo">↶ Undo</button>
+        <button type="button" id="btn-redo" title="Redo (Ctrl+Y)" aria-label="Redo">↷ Redo</button>
+        <label class="inline">Speed
+          <select id="speed">
+            <option value="0.25">¼×</option>
+            <option value="0.5">½×</option>
+            <option value="1" selected>1×</option>
+          </select>
+        </label>
+        <span class="spacer"></span>
+        <label class="inline teacher-only"><input type="checkbox" id="opt-grid" checked> Grid</label>
+        <label class="inline"><input type="checkbox" id="opt-vectors"> Velocity</label>
+        <label class="inline student-only"><input type="checkbox" id="opt-zero" checked> <span><i>U</i><sub>g</sub> = 0 line</span></label>
+      </div>
+      <div class="canvas-wrap"><canvas id="scene"></canvas></div>
+      <div class="statusbar">
+        <span id="time-readout">t = 0.00 s</span>
+        <span id="hint"></span>
+      </div>
+      <div id="error" class="error" hidden></div>
+    </section>
+
+    <div class="gutter gutter-main" id="gutter-main" role="separator" tabindex="0"
+         aria-label="Resize the simulation and the side panels" title="Drag to resize. Double-click to reset."></div>
+
+    <aside class="inspector">
+      <section class="panel">
+        <div class="panel-head">
+          <h2>Energy bar chart</h2>
+          <label class="inline small"><input type="checkbox" id="opt-values"> Show values</label>
+        </div>
+        <p id="system-summary" class="summary"></p>
+        <canvas id="chart" aria-label="Energy bar chart"></canvas>
+        <div class="gutter gutter-row" id="gutter-chart" role="separator" aria-orientation="horizontal" tabindex="0"
+             aria-label="Resize the bar chart" title="Drag to resize. Double-click to reset."></div>
+        <div id="boundary" class="boundary" role="status" hidden></div>
+        <div id="equation" class="equation"></div>
+        <p id="unit-note" class="muted small"></p>
+        <ul id="work-list" class="work-list"></ul>
+        <div id="notes" class="notes"></div>
+        <label class="inline small option teacher-only">
+          <input type="checkbox" id="opt-work" checked>
+          <span>Show the work (<i>W</i>) column. Turn off before students have learned about work.</span>
+        </label>
+      </section>
+
+      <section class="panel">
+        <h2>System</h2>
+        <p class="muted small">Check the objects you want inside the system.</p>
+        <ul id="system-list" class="system-list"></ul>
+      </section>
+
+      <section class="panel">
+        <h2 id="props-title">Properties</h2>
+        <div id="props" class="props"></div>
+      </section>
+    </aside>
+  </main>
+
+  <script src="js/track.js"></script>
+  <script src="js/world.js"></script>
+  <script src="js/scenes.js"></script>
+  <script src="js/render.js"></script>
+  <script src="js/barchart.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/layout.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
